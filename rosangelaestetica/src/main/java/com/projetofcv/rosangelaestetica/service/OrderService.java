@@ -31,8 +31,8 @@ public class OrderService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id)); 
     }
 
-    public List<Order> findOrdesByDate(LocalDate date){
-        return orderRepository.findOrdersByDate(date); 
+    public List<Order> searchOrders(LocalDate date, String name){
+        return orderRepository.searchOrders(date, name); 
     }
 
     public List<Order> findOrdersByUserClient(Long id){

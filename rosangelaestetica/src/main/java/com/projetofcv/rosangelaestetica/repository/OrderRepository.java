@@ -11,8 +11,8 @@ import com.projetofcv.rosangelaestetica.entity.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long>{  
 
-    @Query("SELECT o FROM Order o WHERE o.date = :date")
-    public List<Order> findOrdersByDate(@Param("date") LocalDate date);
+    @Query("SELECT o FROM Order o WHERE o.date = :date OR o.userClient.name = :userName")
+    public List<Order> searchOrders(@Param("date") LocalDate date, @Param("userName") String name);
 
     @Query("SELECT i FROM Order i WHERE i.userClient.id = :userId")
     public List<Order> findOrdersByUserId(@Param("userId") Long id); 

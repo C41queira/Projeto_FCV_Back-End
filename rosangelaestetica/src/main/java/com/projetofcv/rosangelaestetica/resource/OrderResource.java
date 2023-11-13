@@ -44,23 +44,33 @@ public class OrderResource {
         return ResponseEntity.ok().body(u);
     }
 
-    @GetMapping(value = "/search_date")
-    public ResponseEntity<List<Order>> findOrdesByDate(@RequestParam(value = "date", defaultValue = "") String date){
-        LocalDate localDate = URL.decodeDate(date); 
-        List<Order> listOrders = service.findOrdesByDate(localDate); 
-        return ResponseEntity.ok().body(listOrders); 
+    @GetMapping(value = "/search_orders")
+    public ResponseEntity<List<Order>> searchOrderes(
+            @RequestParam(value = "date", defaultValue = "") String date,
+            @RequestParam(value = "userName", defaultValue = "") String name) {
+
+        LocalDate localDate;
+
+        if (date.equals("")) {
+            localDate = null;
+        } else {
+            localDate = URL.decodeDate(date);
+        }
+
+        List<Order> listOrders = service.searchOrders(localDate, name);
+        return ResponseEntity.ok().body(listOrders);
     }
 
     @GetMapping(value = "/search_orders_user/{id}")
-    public ResponseEntity<List<OrderDTO>> findOrdersByUserClient(@PathVariable Long id){
+    public ResponseEntity<List<OrderDTO>> findOrdersByUserClient(@PathVariable Long id) {
         List<Order> listOrders = service.findOrdersByUserClient(id);
-        List<OrderDTO> listDto = new ArrayList<>(); 
+        List<OrderDTO> listDto = new ArrayList<>();
 
-        for (Order o: listOrders) { 
-            listDto.add(changeDTO(o)); 
+        for (Order o : listOrders) {
+            listDto.add(changeDTO(o));
         }
 
-        return ResponseEntity.ok().body(listDto); 
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
@@ -82,9 +92,8 @@ public class OrderResource {
         return ResponseEntity.ok().body(obj);
     }
 
-
-    public OrderDTO changeDTO(Order order){
+    public OrderDTO changeDTO(Order order) {
         OrderDTO dto = new OrderDTO(order);
-        return dto; 
+        return dto;
     }
 }
