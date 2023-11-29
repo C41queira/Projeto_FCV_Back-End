@@ -60,6 +60,9 @@ public class UserService{
         entity.setName(user.getName());
         entity.setPassword(user.getPassword());
         entity.setDocument(user.getDocument());
+        entity.setEmail(user.getEmail());
+        entity.setAge(user.getAge());
+        entity.setPhone(user.getPhone());
     }
 
     public User loginUser(String name, String password){

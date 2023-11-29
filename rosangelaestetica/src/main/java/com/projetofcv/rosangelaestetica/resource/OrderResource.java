@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,10 +34,17 @@ public class OrderResource {
     private OrderService service;
 
     @GetMapping
-    public ResponseEntity<List<Order>> findAll() {
+    public ResponseEntity<List<OrderDTO>> findAll() {
         List<Order> list = service.findAll();
         list.sort(Comparator.comparing(Order::getDate).thenComparing(Order::getTime));
-        return ResponseEntity.ok().body(list);
+
+        List<OrderDTO> listDto = new ArrayList<>();
+
+        for (Order o : list) {
+            listDto.add(changeDTO(o));
+        }
+
+        return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -80,6 +89,7 @@ public class OrderResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
