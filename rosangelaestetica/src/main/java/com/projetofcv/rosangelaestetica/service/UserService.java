@@ -25,7 +25,7 @@ public class UserService{
         return userRepository.findAll(); 
     }
 
-    public User findById(Long id){
+    public User findById(int id){
         Optional<User> obj = userRepository.findById(id); 
         return obj.orElseThrow(() -> new ResourceNotFoundException(id)); 
     }
@@ -34,7 +34,7 @@ public class UserService{
         return userRepository.save(obj);
     }
 
-    public void delete(Long id){
+    public void delete(int id){
         try {
             userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -45,7 +45,7 @@ public class UserService{
         
     }
 
-    public User update(Long id, User user){
+    public User update(int id, User user){
         try {
             User entity = userRepository.getReferenceById(id); 
             updateData(entity, user); 

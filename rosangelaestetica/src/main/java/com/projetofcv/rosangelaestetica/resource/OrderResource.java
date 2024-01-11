@@ -48,7 +48,7 @@ public class OrderResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Order> findByOrder(@PathVariable Long id) {
+    public ResponseEntity<Order> findByOrder(@PathVariable int id) {
         Order u = service.findById(id);
         return ResponseEntity.ok().body(u);
     }
@@ -71,7 +71,7 @@ public class OrderResource {
     }
 
     @GetMapping(value = "/search_orders_user/{id}")
-    public ResponseEntity<List<OrderDTO>> findOrdersByUserClient(@PathVariable Long id) {
+    public ResponseEntity<List<OrderDTO>> findOrdersByUserClient(@PathVariable int id) {
         List<Order> listOrders = service.findOrdersByUserClient(id);
         List<OrderDTO> listDto = new ArrayList<>();
 
@@ -91,13 +91,13 @@ public class OrderResource {
 
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order obj) {
+    public ResponseEntity<Order> update(@PathVariable int id, @RequestBody Order obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }

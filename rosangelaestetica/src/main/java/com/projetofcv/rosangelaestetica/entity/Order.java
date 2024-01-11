@@ -24,7 +24,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
-    private Long id;
+    private int id;
 
     private LocalDate date;
     private LocalTime time;
@@ -43,7 +43,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, LocalDate date, LocalTime time, OrderStatus orderStatus, User userClient, Work work) {
+    public Order(int id, LocalDate date, LocalTime time, OrderStatus orderStatus, User userClient, Work work) {
         this.id = id;
         this.date = date;
         this.time = time;
@@ -52,11 +52,11 @@ public class Order implements Serializable {
         this.workOrder = work;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -105,7 +105,7 @@ public class Order implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + id;
         return result;
     }
 
@@ -118,12 +118,11 @@ public class Order implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         Order other = (Order) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
+        if (id != other.id)
             return false;
         return true;
     }
+
+    
 
 }

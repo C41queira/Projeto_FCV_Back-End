@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.projetofcv.rosangelaestetica.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{ 
+public interface UserRepository extends JpaRepository<User, Integer>{ 
     
     @Query("select j from User j where j.name = :name and j.password = :password")
     public User buscarLogin(String name, String password);

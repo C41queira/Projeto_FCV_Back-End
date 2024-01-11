@@ -35,7 +35,7 @@ public class UserResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findByUser(@PathVariable Long id){
+    public ResponseEntity<User> findByUser(@PathVariable int id){
         User u = service.findById(id);
         return ResponseEntity.ok().body(u); 
     }
@@ -53,14 +53,14 @@ public class UserResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable int id){
         service.delete(id);
         return ResponseEntity.noContent().build(); 
     }
 
     @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
     @PutMapping(value="/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj){
+    public ResponseEntity<User> update(@PathVariable int id, @RequestBody User obj){
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj); 
     }

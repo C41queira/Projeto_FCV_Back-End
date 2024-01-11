@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 import com.projetofcv.rosangelaestetica.entity.Order;
 
-public interface OrderRepository extends JpaRepository<Order, Long>{  
+public interface OrderRepository extends JpaRepository<Order, Integer>{  
 
     @Query("SELECT o FROM Order o WHERE o.date = :date OR o.userClient.name = :userName")
     public List<Order> searchOrders(@Param("date") LocalDate date, @Param("userName") String name);
 
     @Query("SELECT i FROM Order i WHERE i.userClient.id = :userId")
-    public List<Order> findOrdersByUserId(@Param("userId") Long id); 
+    public List<Order> findOrdersByUserId(@Param("userId") int id); 
 }

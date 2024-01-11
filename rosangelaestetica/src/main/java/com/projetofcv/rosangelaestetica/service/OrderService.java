@@ -26,7 +26,7 @@ public class OrderService {
         return orderRepository.findAll(); 
     }
 
-    public Order findById(Long id){
+    public Order findById(int id){
         Optional<Order> obj = orderRepository.findById(id); 
         return obj.orElseThrow(() -> new ResourceNotFoundException(id)); 
     }
@@ -35,7 +35,7 @@ public class OrderService {
         return orderRepository.searchOrders(date, name); 
     }
 
-    public List<Order> findOrdersByUserClient(Long id){
+    public List<Order> findOrdersByUserClient(int id){
         return orderRepository.findOrdersByUserId(id); 
     }
 
@@ -43,7 +43,7 @@ public class OrderService {
         return orderRepository.save(obj);
     }
 
-    public void delete(Long id){
+    public void delete(int id){
         try {
             orderRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
@@ -54,7 +54,7 @@ public class OrderService {
         
     }
 
-    public Order update(Long id, Order Order){
+    public Order update(int id, Order Order){
         try {
             Order entity = orderRepository.getReferenceById(id); 
             updateData(entity, Order); 

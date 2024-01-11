@@ -10,7 +10,7 @@ import com.projetofcv.rosangelaestetica.entity.enums.OrderStatus;
 
 public class OrderDTO {
 
-    private Long id;
+    private int id;
     private String date;
     private String time;
     private OrderStatus orderStatus;
@@ -40,11 +40,11 @@ public class OrderDTO {
         }
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -108,7 +108,7 @@ public class OrderDTO {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + id;
         return result;
     }
 
@@ -121,12 +121,11 @@ public class OrderDTO {
         if (getClass() != obj.getClass())
             return false;
         OrderDTO other = (OrderDTO) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
+        if (id != other.id)
             return false;
         return true;
     }
+
+    
 
 }
